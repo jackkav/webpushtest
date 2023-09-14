@@ -16,8 +16,11 @@ webpush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY
 )
 
-app.get('/send-notification', (req, res) => {
-  webpush.sendNotification(subscriptionData, "Hello World")
+app.post('/send-notification', (req, res) => {
+  console.log('send', req.body)
+  if (!subscriptionData) return res.sendStatus(400);
+  const payload = JSON.stringify({ title: req.body.title || "Hello World", body: req.body.body || "something" })
+  webpush.sendNotification(subscriptionData, payload)
   res.sendStatus(200);
 })
 
@@ -26,6 +29,6 @@ app.post("/save-subscription", async (req, res) => {
   res.sendStatus(200);
 });
 
-app.use(express.static("./public"));
+app.use(express.static("../client"));
 
-app.listen(8000);
+app.listen(3000);

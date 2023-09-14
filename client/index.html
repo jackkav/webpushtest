@@ -10,6 +10,30 @@
 
 <body>
   <button id="subscribe">Subscribe</button>
+  <button id="send"
+    onclick="fetch('/send-notification',{ headers: { 'Content-Type': 'application/json', }, method: 'post',body:JSON.stringify({title:'test',body:'body'})})">Send</button>
+  <form id="formElem">
+    <input type="text" id="title" name="title"><br>
+    <input type="text" id="body" name="body"><br>
+    <input type="submit">
+  </form>
 </body>
+<script>
+  formElem.onsubmit = async (e) => {
+    e.preventDefault();
+    console.log(new FormData(formElem));
+    const title = new FormData(formElem).get('title');
+    const body = new FormData(formElem).get('body');
+    let response = await fetch('/send-notification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ title, body })
+    });
+
+    // let result = await response.json();
+
+    // alert(result.message);
+  };
+</script>
 
 </html>
