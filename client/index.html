@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/site.webmanifest">
   <script src="index.js" defer></script>
-  <title>Notifications</title>
+  <title>Simple push</title>
 </head>
 
 <body>
   <button id="subscribe">Subscribe</button>
-  <button id="send"
-    onclick="fetch('/send-notification',{ headers: { 'Content-Type': 'application/json', }, method: 'post',body:JSON.stringify({title:'test',body:'body'})})">Send</button>
   <form id="formElem">
     <input type="text" id="title" name="title"><br>
     <input type="text" id="body" name="body"><br>
@@ -29,10 +27,6 @@
       headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ title, body })
     });
-
-    // let result = await response.json();
-
-    // alert(result.message);
   };
 </script>
 

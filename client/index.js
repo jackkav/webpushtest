@@ -1,24 +1,12 @@
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, "+")
-    .replace(/_/g, "/");
-  const rawData = atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
+  const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
+  return Uint8Array.from(atob(base64).split("").map(x => x.charCodeAt()))
 }
 
 async function run() {
   // A service worker must be registered in order to send notifications on iOS
-  const registration = await navigator.serviceWorker.register(
-    "serviceworker.js",
-    {
-      scope: "./",
-    }
-  );
+  const registration = await navigator.serviceWorker.register("serviceworker.js", { scope: "./", });
 
   const button = document.getElementById("subscribe");
   button.addEventListener("click", async () => {
