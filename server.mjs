@@ -29,6 +29,6 @@ app.post("/save-subscription", async (req, res) => {
   res.sendStatus(200);
 });
 
-app.use(express.static("../client"));
-
+app.use(express.static("./public"));
+console.log('listening on 3000')
 app.listen(3000);
